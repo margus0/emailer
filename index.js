@@ -71,6 +71,7 @@ router.post('/contact', validateUser, (req, res) => {
     } else {
       res.json({ status: 'Message Sent' });
     }
+      contactEmail.close();
   });
 });
 
