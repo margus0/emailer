@@ -14,7 +14,7 @@ app.use('/', router);
 
 const contactEmail = nodemailer.createTransport({
    service: 'Gmail',
-  port: 465,
+  port: 993,
   auth: {
     user: process.env.EMAIL,
     pass: process.env.PASS,
@@ -75,4 +75,4 @@ router.post('/contact', validateUser, (req, res) => {
   });
 });
 
-app.listen(5000, () => console.log('Server Running'));
+app.listen(8080, () => console.log('Server Running'));
