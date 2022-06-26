@@ -20,7 +20,7 @@ const contactEmail = nodemailer.createTransport({
     pass: process.env.PASS,
   },
     tls: {
-   rejectUnauthorized: true,
+   rejectUnauthorized: false,
   },
 });
 
