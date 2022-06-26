@@ -13,7 +13,7 @@ app.use(express.json());
 
 
 const contactEmail = nodemailer.createTransport({
-   service: 'Yahoo',
+   service: 'Gmail',
   port: 445,
   auth: {
     user: process.env.EMAIL,
