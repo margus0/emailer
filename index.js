@@ -14,7 +14,7 @@ app.use('/', router);
 
 const contactEmail = nodemailer.createTransport({
    service: 'Gmail',
-  port: 993,
+  port: 445,
   auth: {
     user: process.env.EMAIL,
     pass: process.env.PASS,
