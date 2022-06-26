@@ -13,7 +13,8 @@ app.use(express.json());
 app.use('/', router);
 
 const contactEmail = nodemailer.createTransport({
-  service: 'gmail',
+   service: 'Gmail',
+  port: 465,
   auth: {
     user: process.env.EMAIL,
     pass: process.env.PASS,
@@ -31,28 +32,28 @@ contactEmail.verify((error) => {
   }
 });
 
-// async function validateUser(req, res, next) {
-//   const schema = Joi.object({
-//     name: Joi.string().min(3).max(300).required(),
-//     email: Joi.string().email().required(),
-//     message: Joi.string().required(),
-//   });
+async function validateUser(req, res, next) {
+  const schema = Joi.object({
+    name: Joi.string().min(3).max(300).required(),
+    email: Joi.string().email().required(),
+    message: Joi.string().required(),
+  });
 
-//   try {
-//     await schema.validateAsync(req.body, { abortEarly: false });
-//     next();
-//   } catch (error) {
-//     const err = error.details.map((detail) => ({
-//       message: detail.message,
-//       field: detail.context.key,
-//     }));
-//     return res.status(400).send({
-//       err,
-//     });
-//   }
-// }
+  try {
+    await schema.validateAsync(req.body, { abortEarly: false });
+    next();
+  } catch (error) {
+    const err = error.details.map((detail) => ({
+      message: detail.message,
+      field: detail.context.key,
+    }));
+    return res.status(400).send({
+      err,
+    });
+  }
+}
 
-router.post('/contact',  (req, res) => {
+router.post('/contact', validateUser, (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
   const message = req.body.message;
