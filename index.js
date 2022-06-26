@@ -10,7 +10,7 @@ const app = express();
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
-app.use('/', router);
+
 
 const contactEmail = nodemailer.createTransport({
    service: 'Yahoo',
@@ -74,5 +74,7 @@ router.post('/contact', validateUser, (req, res) => {
       contactEmail.close();
   });
 });
+
+app.use('/', router);
 
 app.listen(8080, () => console.log('Server Running'));
